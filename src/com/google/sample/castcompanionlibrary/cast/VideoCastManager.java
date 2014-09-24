@@ -907,7 +907,7 @@ public class VideoCastManager extends BaseCastManager
     }
 
     @Override
-    void onApplicationConnected(ApplicationMetadata appMetadata,
+    protected void onApplicationConnected(ApplicationMetadata appMetadata,
             String applicationStatus, String sessionId, boolean wasLaunched) {
         LOGD(TAG, "onApplicationConnected() reached with sessionId: " + sessionId
                 + ", and mReconnectionStatus=" + mReconnectionStatus);
@@ -1963,7 +1963,7 @@ public class VideoCastManager extends BaseCastManager
     /*============================================================================================*/
 
     @Override
-    void onDeviceUnselected() {
+    protected void onDeviceUnselected() {
         LOGD(TAG, "onDeviceUnselected");
         stopNotificationService();
         detachMediaChannel();
@@ -1972,7 +1972,7 @@ public class VideoCastManager extends BaseCastManager
     }
 
     @Override
-    Builder getCastOptionBuilder(CastDevice device) {
+    protected Builder getCastOptionBuilder(CastDevice device) {
         Builder builder = Cast.CastOptions.builder(mSelectedCastDevice, new CastListener());
         if (isFeatureEnabled(FEATURE_DEBUGGING)) {
             builder.setVerboseLoggingEnabled(true);
@@ -2001,7 +2001,7 @@ public class VideoCastManager extends BaseCastManager
     }
 
     @Override
-    MediaRouteDialogFactory getMediaRouteDialogFactory() {
+    protected MediaRouteDialogFactory getMediaRouteDialogFactory() {
         return new VideoMediaRouteDialogFactory();
     }
 

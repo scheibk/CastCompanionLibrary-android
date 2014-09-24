@@ -145,7 +145,7 @@ public abstract class BaseCastManager implements DeviceSelectionListener, Connec
      * additional logic that can be done, e.g. detaching data or media channels that they may have
      * set up.
      */
-    abstract void onDeviceUnselected();
+    abstract protected void onDeviceUnselected();
 
     /**
      * Since application lifecycle callbacks are managed by subclasses, this abstract method needs
@@ -154,7 +154,7 @@ public abstract class BaseCastManager implements DeviceSelectionListener, Connec
      * @param device
      * @return
      */
-    abstract Cast.CastOptions.Builder getCastOptionBuilder(CastDevice device);
+    abstract protected Cast.CastOptions.Builder getCastOptionBuilder(CastDevice device);
 
     /**
      * Subclasses can decide how the Cast Controller Dialog should be built. If this returns
@@ -162,7 +162,7 @@ public abstract class BaseCastManager implements DeviceSelectionListener, Connec
      *
      * @return
      */
-    abstract MediaRouteDialogFactory getMediaRouteDialogFactory();
+    abstract protected MediaRouteDialogFactory getMediaRouteDialogFactory();
 
     /**
      * Subclasses should implement this to react appropriately to the successful launch of their
@@ -173,7 +173,7 @@ public abstract class BaseCastManager implements DeviceSelectionListener, Connec
      * @param sessionId
      * @param wasLaunched
      */
-    abstract void onApplicationConnected(ApplicationMetadata applicationMetadata,
+    abstract protected void onApplicationConnected(ApplicationMetadata applicationMetadata,
             String applicationStatus, String sessionId, boolean wasLaunched);
 
     /**
@@ -182,14 +182,14 @@ public abstract class BaseCastManager implements DeviceSelectionListener, Connec
      *
      * @param statusCode
      */
-    abstract void onApplicationConnectionFailed(int statusCode);
+    abstract protected void onApplicationConnectionFailed(int statusCode);
 
     /**
      * Called when the attempt to stop application has failed.
      *
      * @param statusCode
      */
-    abstract void onApplicationStopFailed(int statusCode);
+    abstract protected void onApplicationStopFailed(int statusCode);
 
     /************************************************************************/
 
@@ -794,7 +794,7 @@ public void onCastAvailabilityChanged(boolean castPresent) {
     /*
      * Cancels the task responsible for recovery of prior sessions, is used internally.
      */
-    void cancelReconnectionTask() {
+    protected void cancelReconnectionTask() {
         LOGD(TAG, "cancelling reconnection task");
         if (null != mReconnectionTask && !mReconnectionTask.isCancelled()) {
             mReconnectionTask.cancel(true);
